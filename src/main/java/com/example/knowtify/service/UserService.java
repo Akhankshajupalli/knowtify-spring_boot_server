@@ -23,8 +23,7 @@ public class UserService {
     // ✅ User Registration (Save to MongoDB)
     public User registerUser(User user) {
         // Hash password before saving
-        ((User) user.getCredentials())
-                .setPassword(passwordEncoder.encode(((User) user.getCredentials()).getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -33,7 +32,7 @@ public class UserService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("Invalid credentials"));
 
-        if (!passwordEncoder.matches(password, ((User) user.getCredentials()).getPassword())) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new UserNotFoundException("Invalid credentials");
         }
 
@@ -62,9 +61,6 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found."));
 
-        // Update fields
-        user.setPersonal(updatedUser.getPersonal());
-
         return userRepository.save(user);
     }
 
@@ -74,11 +70,6 @@ public class UserService {
             throw new UserNotFoundException("User with ID " + id + " not found.");
         }
         userRepository.deleteById(id);
-    }
-
-    public User saveUser(User user) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'saveUser'");
     }
 
 }

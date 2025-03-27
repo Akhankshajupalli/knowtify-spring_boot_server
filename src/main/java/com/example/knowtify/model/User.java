@@ -29,19 +29,4 @@ public class User {
 
     private List<String> interests; // Store selected interests
 
-    private String role; // Can be "user" or "admin"
-
-    public Object getCredentials() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public Object getPersonal() {
-
-        throw new UnsupportedOperationException("Unimplemented method 'getPersonal'");
-    }
-
-    public void setPersonal(Object personal) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'setPersonal'");
-    }
 }
